@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var CompanySchema = new mongoose.Schema({
-    name: String,
-    logo: String,
+    name: {type: String, unique:true},
+    image: String,
     address: String,
     viewcount : Number
 });
