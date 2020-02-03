@@ -1,15 +1,34 @@
-let PORT = 8080;
+var PORT 		= 8080;
 
-let express = require("express");
-let mongoose = require('mongoose');
+var express			= require("express"),
+	mongoose		= require('mongoose'),
+	User 			= require('./models/user'),
+ 	passport		= require('passport'),
+ 	bodyparser  	= require("body-parser"),
+ 	localPassport 	= require('passport-local');
+ 	
 
-let app = express();
+var app = express();
+
 app.set("view engine", 'ejs');
+app.use(bodyparser.urlencoded({extended:true}));
 
-mongoose.connect('mongodb://localhost:27017/yelp_camp', { useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
+
+
+
+app.get('/register', (req, res)=>{
+	res.render('register', {page:'register'});
+});
 
 app.get('/login', (req, res)=>{
-	res.render('login');
+	res.render('login', {page:'login'});
+});
+
+app.post('/login', passport.authenticate("local", {
+    successRedirect: "/home",
+    failureRedirect: "/login"
+}), (req, res)=>{
 });
 
 
