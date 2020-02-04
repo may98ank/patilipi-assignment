@@ -51,9 +51,17 @@ function seed() {
 	});
 }
 
+// io.on('connection', function(socket){
+//   console.log('a user connected');
+//   socket.on('disconnect', function(){
+  	
+//   });
+// });
+
 	
 
-mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
+mongoose.connect('mongodb://colt:rusty@ds055525.mongolab.com:55525/yelpcamp', { useUnifiedTopology: true , useNewUrlParser: true});
 
 
 app.set("view engine", 'ejs');
