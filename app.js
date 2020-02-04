@@ -188,7 +188,9 @@ app.get('/logout', isLoggedIn,(req, res)=>{
 	res.redirect('/');
 });
 
-app.listen(PORT, process.env.IP, ()=>{
+app.listen(process.env.PORT, process.env.IP, ()=>{
 	seed();
 	console.log("Assignment App");
 });
+
+// https://salty-dawn-52431.herokuapp.com/
