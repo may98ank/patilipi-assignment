@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var EmploySchema = new mongoose.Schema({
-    user: {
+    userId: {
     	type: mongoose.Schema.Types.ObjectId,
     	ref: "User"
     },

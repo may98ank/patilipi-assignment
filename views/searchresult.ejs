@@ -1,0 +1,11 @@
+<%- include('partials/header') %>
+
+<ul>
+
+<% results.forEach((result)=>{ %>
+	<a href="/company/<%= result._id %>"><li><%= result.name %></li></a>
+<% }); %>
+
+</ul>
+
+<%- include('partials/footer') %>

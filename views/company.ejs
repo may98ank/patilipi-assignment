@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+	<div class="container">
+		<div class="thumbnail">
+	        <img class="img-responsive" src="<%= company.image %>">
+	        <div class="caption-full">
+	            <h4><a>Name: <%= company.name %></a></h4>
+	            <h4><a>Address: <%= company.address %></a></h4>
+	            <h4><a>Views Till Now: <%= company.viewcount %></a></h4>
+	        </div>
+	    </div>
+	</div>
+
+<%- include('partials/footer') %>
