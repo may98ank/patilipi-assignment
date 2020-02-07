@@ -22,10 +22,13 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "http": "0.0.0",
     "mongoose": "^5.8.11",
     "mongoose-fuzzy-searching": "^1.1.8",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.0.1"
+    "passport-local-mongoose": "^6.0.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   }
 }

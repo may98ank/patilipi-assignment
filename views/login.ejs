@@ -1,6 +1,13 @@
 <%- include('partials/header') %>
-	
+
+
 	<div class="container">
+	<% if(invaliderror === true){ %>
+		<h3>Incorrect Username or Password</h3>
+	<% }else if(askloginerror === true){ %>
+		<h3>You Need to Login First</h3>
+	<% } %>
+	
 	    <div class="row">
 	        <h1 style="text-align:center">Sign Up</h1>
 	        <div style="width:40%; margin: 25px auto;">

@@ -1,5 +1,10 @@
 <%- include('partials/header') %>
 
+<% if(results.length === 0){ %>
+<h1> No Reults found...</h1>
+<a href="/home">Try Again...</a>
+<% } %>
+
 <ul>
 
 <% results.forEach((result)=>{ %>

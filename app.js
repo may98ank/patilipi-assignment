@@ -12,9 +12,9 @@ var express			= require("express"),
 
 var app = express();
 
-// mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
 
-mongoose.connect('mongodb+srv://mayank:hello@cluster0-9fy5z.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true , useNewUrlParser: true});
+// mongoose.connect('mongodb+srv://mayank:hello@cluster0-9fy5z.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true , useNewUrlParser: true});
 
 
 function seed() {
@@ -80,6 +80,9 @@ app.use(passport.session());
 
 app.use((req, res, next)=>{
     res.locals.currentUser = req.user;
+    // res.locals.loginerror = false;
+    // res.locals.asklogin = false;
+    // res.locals.userexist = false;
     next();
 });
 
@@ -99,6 +102,7 @@ var isLoggedIn = function (req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.session.asklogin = true;
     res.redirect('/login');
 };
 
@@ -142,7 +146,12 @@ app.get('/company/:id', isLoggedIn, (req, res)=>{
 });
 
 app.get('/register', (req, res)=>{
-	res.render('register', {page:'register'});
+	let  error = false;
+	if(typeof req.session.userexist !== 'undefined' && req.session.userexist === true){
+		error = true;
+		req.session.userexist = false;
+	}
+	res.render('register', {page:'register', usernametaken:error});
 });
 
 
@@ -151,6 +160,7 @@ app.post('/register', (req, res)=>{
 
     User.register(newUser, req.body.password, (err, user)=>{
         if(err){
+        	req.session.userexist = true;
             res.redirect("/register");
         }else{
             passport.authenticate("local")(req, res, ()=>{
@@ -182,7 +192,18 @@ app.post('/login', passport.authenticate('local', {
 });
 
 app.get('/login', (req, res)=>{
-	res.render('login', {page:'login'});
+	let error1 = false, error2 = false;
+	if(typeof req.session.asklogin !== 'undefined' && req.session.asklogin === true){
+		error1 = true;
+		req.session.asklogin = false;
+	}
+	if(typeof req.session.loginerror !== 'undefined' && req.session.loginerror === true){
+		error2 = true;
+		req.session.loginerror = false;
+	}
+	console.log(req.session.loginerror);
+	console.log(req.session.asklogin);
+	res.render('login', {page:'login', askloginerror: error1, invaliderror: error2});
 });
 
 app.get('/logout', isLoggedIn,(req, res)=>{
@@ -190,7 +211,7 @@ app.get('/logout', isLoggedIn,(req, res)=>{
 	res.redirect('/');
 });
 
-app.listen(process.env.PORT, process.env.IP, ()=>{
+app.listen(PORT, process.env.IP, ()=>{
 	seed();
 	console.log("Assignment App");
 });
