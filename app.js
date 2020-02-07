@@ -12,9 +12,9 @@ var express			= require("express"),
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost:27017/company_employ', { useUnifiedTopology: true , useNewUrlParser: true});
 
-// mongoose.connect('mongodb+srv://mayank:hello@cluster0-9fy5z.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true , useNewUrlParser: true});
+mongoose.connect('mongodb+srv://mayank:hello@cluster0-9fy5z.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true , useNewUrlParser: true});
 
 
 function seed() {
@@ -211,7 +211,7 @@ app.get('/logout', isLoggedIn,(req, res)=>{
 	res.redirect('/');
 });
 
-app.listen(PORT, process.env.IP, ()=>{
+app.listen(process.env.PORT, process.env.IP, ()=>{
 	seed();
 	console.log("Assignment App");
 });
