@@ -184,10 +184,15 @@ app.post('/register', (req, res)=>{
     });
 });
 
+app.get('/loginfail', (req, res)=>{
+	req.session.loginerror = true;
+	res.redirect('/login');
+});
+
 
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/home',
-    failureRedirect: '/login'
+    failureRedirect: '/loginfail'
 }), (req, res)=>{
 });
 
